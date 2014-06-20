@@ -1,11 +1,13 @@
 require 'spec_helper'
 
-describe BankAccount do 
+describe "BANKING" do 
+
   let(:avi) { BankAccount.new("Avi") }
   let(:amanda) { BankAccount.new("Amanda") }
   let(:transfer) { Transfer.new(amanda, avi, 50) }
+  let(:bad_transfer) { Transfer.new(amanda, avi, 4000) }
 
-  describe "Basic BankAccount functionality" do
+  describe BankAccount do
     it "can initialize a Bank Account" do
       expect(avi).to be_a(BankAccount)
     end
@@ -46,17 +48,17 @@ describe BankAccount do
     end
   end
 
-  describe "Basic Transfer functionality" do 
+  describe Transfer do 
     it "can initialize a Transfer" do
       expect(transfer).to be_a(Transfer)
     end
 
-    it "initializes with a transferer" do 
-      expect(transfer.transferer).to eq(amanda)
+    it "initializes with a sender" do 
+      expect(transfer.sender).to eq(amanda)
     end
 
-    it "initializes with a transferee" do 
-      expect(transfer.transferee).to eq(avi)
+    it "initializes with a receiver" do 
+      expect(transfer.receiver).to eq(avi)
     end
 
     it "initializes with a transfer amount" do 
@@ -73,23 +75,23 @@ describe BankAccount do
 
   describe "Making transfers between two accounts" do
 
-    xit "an account is able to transfer money" do 
+    it "can execute a successful transaction between two accounts" do 
+      transfer.execute_transaction
+      expect(amanda.balance).to eq(950)
+      expect(avi.balance).to eq(1050)
     end
 
-    xit "an account is able to accept a transfer from another account" do 
+    it "can reject a transfer if the sender doesn't have a valid account" do
+      expect(bad_transfer.execute_transaction).to eq("Transaction rejected. Please check your account balance.")
     end
 
-    describe "Transfer handles a transfer between accounts" do 
-
-      xit "can execute a transaction between two accounts" do 
-      end
-
-      xit "can reject a transfer if the transferer doesn't have a valid account" do 
-      end
-
-      xit "can reverse a transfer between two accounts" do 
-      end
-
+    it "can reverse a transfer between two accounts" do
+      transfer.execute_transaction
+      expect(amanda.balance).to eq(950)
+      expect(avi.balance).to eq(1050)
+      transfer.reverse_transfer
+      expect(avi.balance).to eq(1000)
+      expect(amanda.balance).to eq(1000)
     end
 
   end

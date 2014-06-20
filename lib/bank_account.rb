@@ -4,7 +4,7 @@ class BankAccount
 
   def initialize(name)
     @name = name
-    @balance = 1000 #must open with a deposit
+    @balance = 1000
     @status = "open"
   end
 
@@ -28,7 +28,6 @@ class BankAccount
     if valid?
       self.balance -= transfer_amount
     end
-    return transfer_amount
   end
 
   def accept_transfer(accepted_transfer_amount)
