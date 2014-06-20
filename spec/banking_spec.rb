@@ -83,7 +83,7 @@ describe "BANKING" do
       transfer.execute_transaction
       expect(amanda.balance).to eq(950)
       expect(avi.balance).to eq(1050)
-      expect(transfer.status).to eq("executed")
+      expect(transfer.status).to eq("complete")
     end
 
     it "can reject a transfer if the sender doesn't have a valid account" do

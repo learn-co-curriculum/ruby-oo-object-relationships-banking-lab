@@ -24,16 +24,4 @@ class BankAccount
     balance > 0 && status == "open"
   end
 
-  def transfer_money(transfer_amount)
-    if valid?
-      self.balance -= transfer_amount
-    end
-  end
-
-  def accept_transfer(accepted_transfer_amount)
-    if valid?
-      self.balance += accepted_transfer_amount
-    end
-  end
-
 end
