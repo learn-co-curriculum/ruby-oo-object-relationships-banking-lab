@@ -61,6 +61,10 @@ describe "BANKING" do
       expect(transfer.receiver).to eq(avi)
     end
 
+    it "always initializes with a status of 'pending'" do
+      expect(transfer.status).to eq("pending")
+    end
+
     it "initializes with a transfer amount" do 
       expect(transfer.transfer_amount).to eq(50)
     end
@@ -79,10 +83,12 @@ describe "BANKING" do
       transfer.execute_transaction
       expect(amanda.balance).to eq(950)
       expect(avi.balance).to eq(1050)
+      expect(transfer.status).to eq("executed")
     end
 
     it "can reject a transfer if the sender doesn't have a valid account" do
       expect(bad_transfer.execute_transaction).to eq("Transaction rejected. Please check your account balance.")
+      expect(bad_transfer.status).to eq("rejected")
     end
 
     it "can reverse a transfer between two accounts" do
@@ -92,6 +98,7 @@ describe "BANKING" do
       transfer.reverse_transfer
       expect(avi.balance).to eq(1000)
       expect(amanda.balance).to eq(1000)
+      expect(transfer.status).to eq("reversed")
     end
 
   end
