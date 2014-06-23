@@ -15,7 +15,3 @@ Transfers start out in a "pending" state. They can be executed and go to a "comp
 ## Instructions
 
 Pass the tests. They are deliberatively vague; your design is up to you.
-
-## Bonus/TODO
-
-Add functionality to BankAccount class so that every method/action must require a pin. The pin should be setable, but private and not accessible. Read up on `private` methods which will help with this.
