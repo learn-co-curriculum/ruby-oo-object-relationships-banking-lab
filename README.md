@@ -1,8 +1,4 @@
----
-  tags: oo, object relations, classes, intermediate
-  languages: ruby
-  resources: 0
----
+
 
 # Object Oriented Banking
 
