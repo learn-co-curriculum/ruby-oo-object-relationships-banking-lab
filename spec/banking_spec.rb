@@ -2,7 +2,6 @@ describe "BankAccount" do
 
   let(:avi) { BankAccount.new("Avi") }
 
-
   describe 'BankAccount - ::new' do
     it "can initialize a Bank Account" do
       expect(avi).to be_a(BankAccount)
