@@ -2,29 +2,31 @@ describe "BankAccount" do
 
   let(:avi) { BankAccount.new("Avi") }
 
-  describe 'BankAccount - ::new' do
-    it "can initialize a Bank Account" do
-      expect(avi).to be_a(BankAccount)
-    end
+  describe 'BankAccount' do
+    describe "#initialize" do
+      it "can initialize a Bank Account" do
+        expect(avi).to be_a(BankAccount)
+      end
 
-    it "initializes with a name" do
-      expect(avi.name).to eq("Avi")
-    end
+      it "initializes with a name" do
+        expect(avi.name).to eq("Avi")
+      end
 
-    it "always initializes with balance of 1000" do
-      expect(avi.balance).to eq(1000)
-    end
+      it "always initializes with balance of 1000" do
+        expect(avi.balance).to eq(1000)
+      end
 
-    it "always initializes with a status of 'open'" do
-      expect(avi.status).to eq("open")
-    end
+      it "always initializes with a status of 'open'" do
+        expect(avi.status).to eq("open")
+      end
 
-    it "can't change its name" do 
-      expect { avi.name = "Bob" }.to raise_error
+      it "can't change its name" do 
+        expect { avi.name = "Bob" }.to raise_error
+      end
     end
   end
 
-  describe 'BankAccount - #deposit' do
+  describe '#deposit' do
     it "can deposit money into its account" do 
       expect(avi.balance).to eq(1000)
       avi.deposit(1000)
@@ -32,13 +34,13 @@ describe "BankAccount" do
     end
   end
 
-  describe 'BankAccount - #display_balance' do
+  describe '#display_balance' do
     it "can display its balance" do 
       expect(avi.display_balance).to eq("Your Balance is $#{avi.balance}.")
     end
   end
 
-  describe 'BankAccount - #valid?' do
+  describe '#valid?' do
     it "is valid with an open status and a balance greater than 0" do
       @broke = BankAccount.new("Kat Dennings")
       @broke.balance = 0
@@ -50,7 +52,7 @@ describe "BankAccount" do
     end
   end
 
-  describe 'BankAccount - #close_account' do
+  describe '#close_account' do
     it "can close its account" do 
       avi.close_account
       expect(avi.status).to eq("closed")
