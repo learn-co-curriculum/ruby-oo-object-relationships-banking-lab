@@ -46,7 +46,7 @@ describe 'Transfer' do
   end
 
   describe '#execute_transaction' do
-    let(:avi) { BankAccount.new("Avi") } # add these from lines 3-7 back in so the variables are once again defined in this test scope
+    let(:avi) { BankAccount.new("Avi") }
     let(:amanda) { BankAccount.new("Amanda") }
     let(:transfer) { Transfer.new(amanda, avi, 50) }
     let(:bad_transfer) { Transfer.new(amanda, avi, 4000) }
