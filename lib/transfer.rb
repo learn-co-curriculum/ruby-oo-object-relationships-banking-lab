@@ -8,7 +8,7 @@ require 'pry'
 # bank_account.rb
 class Transfer
   attr_reader :amount, :sender, :receiver
-  attr_accessor :status, :last_transaction
+  attr_accessor :status
 
   def initialize(sender, receiver, amount)
     @status = 'pending'
@@ -17,36 +17,36 @@ class Transfer
     @receiver = receiver
   end
 
+  # valid?
+  # can check that both accounts are valid
+  # @return [TrueClass, FalseClass]
   def valid?
-    sender.balance = 1000
-    receiver.balance = 950
     sender.valid? && receiver.valid?
   end
 
-  # def transfer_status
-  #   self.status = 'complete'
-  # end
-
-  def close_account_transfer
-    self.status = 'closed'
-  end
-
+  # execute_transaction - can execute a successful transaction between two accounts
   def execute_transaction
-    if valid?
-
-      sender.balance -= amount # subtract if valid
-      receiver.balance += amount # add to receiver
-      transfer_status = 'complete'
-
+    if valid? && sender.balance > amount && self.status == "pending"
+      sender.balance -= amount
+      receiver.balance += amount
+      self.status = "complete"
     else
-      reverse_transfer
-      amount = 0
+      reject_transfer
     end
   end
 
   def reverse_transfer
+    if valid? && receiver.balance > amount && self.status == "complete"
+      receiver.balance -= amount
+      sender.balance += amount
+      self.status = "reversed"
+    else
+      reject_transfer
+    end
+  end
 
-    @status = 'rejected'
-    'Transaction rejected. Please check your account balance.'
+  def reject_transfer
+    self.status = "rejected"
+    "Transaction rejected. Please check your account balance."
   end
 end
